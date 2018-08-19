@@ -1,0 +1,33 @@
+/*Total number of rows*/
+select count(*) from movements;
+88557650
+
+/* This is the first lab mouse movements sequence on Nov 7, 2014*/
+select count(*) from movements where (timestamp >= 1415358000000 and timestamp <= 1415365200000);
+
+
+/* This is the second lab mouse movements on Nov 28, 2014*/
+select count(*) from movements where (timestamp >= 1417172400000 and timestamp <= 1417179600000);
+
+
+/* This is the mousemovements from both the blocks combined*/
+select (count(*)/88557650.00)*100 from movements where (timestamp >= 1415358000000 and timestamp <= 1415365200000) or (timestamp >= 1417172400000 and timestamp <= 1417179600000);
+
+/*From the data we see that we have 19.24% data recorded under lab environment*/
+
+
+
+select * from movements limit 20;
+
+UPDATE MOVEMENTS
+SET ENVIRONMENT = "IN LAB"
+WHERE (timestamp >= 1415358000000 and timestamp <= 1415365200000) or (timestamp >= 1417172400000 and timestamp <= 1417179600000);
+
+
+UPDATE MOVEMENTS
+SET ENVIRONMENT = "OUT LAB"
+WHERE NOT (timestamp >= 1415358000000 and timestamp <= 1415365200000) or (timestamp >= 1417172400000 and timestamp <= 1417179600000);
+
+
+select count(*) from movements;
+
